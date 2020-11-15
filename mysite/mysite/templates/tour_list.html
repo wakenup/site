@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% block content %}
+
+    <div class="mt-5">
+   <a href="{% url  'mainapp:createtour' %}" style="color:white; text-decoration: none;"> <button class="btn btn-primary">Создать турнир</button></a>
+        <div style="text-align: center" class="p-3">
+            <h3>Текущие турниры</h3>
+        </div>
+        <div class="row d-flex justify-content-around">
+            {% for tour in tournaments %}
+            <div class="col-lg-5 mb-5">
+                <div class="box-element bg-light d-flex justify-content-around p-3">
+                    <img class="thumbnail" src="{{ tour.imageURL }}" alt="" style="width:100px">
+                    <div>
+                        <p style="font-size: 20px;" class="font-weight-bold"><a href="" style="text-decoration:none!important;">{{ tour.title }}</a></p>
+                        <div>
+                            <p class="mb-1 font-weight-bold">Количество участников:</p>
+                            <p>{{ tour.teamsamount}}</p>
+                        </div>
+                        <div>
+                            <p class="mb-1 font-weight-bold">Место проведения:</p>
+                            <p>{{ tour.city}}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
+</body>
+</html>

@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block content %}
+    <div class="mt-5 ml-5">
+
+{#        <div>Имя : {{ user.first_name }}</div>#}
+{#        <div>Фамилия : {{ user.last_name }}</div>#}
+{#        <div>Email : {{ user.email }}</div>#}
+        <form action="" method="post" enctype="multipart/form-data">
+             {% csrf_token %}
+            <div class="d-flex justify-content-around">
+                <div>
+                    <img src="{{ request.user.player.avatar.url }}" id="tour_pic" alt="" style="width: 200px" class="mb-5">
+                    <br>
+                    {{ form.avatar }}
+                </div>
+            <div>
+                <p>{{ userform.first_name }}</p>
+                <p>{{  userform.last_name}}</p>
+                <p>{{ form.phone }}</p>
+                <input type="submit" class="btn btn-primary" value="Сохранить">
+            </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+    var form_fields = document.getElementsByTagName('input')
+
+    form_fields[3].placeholder="Имя"
+    form_fields[4].placeholder="Фамилия"
+    form_fields[5].placeholder="Телефон"
+    form_fields[2].id = "add_image"
+    for (var field in form_fields){
+        form_fields[field].className += ' form-control'
+    }
+    form_fields[2].className -= ' form-control'
+
+    const inpFile = document.getElementById("add_image");
+    const previewImage =document.getElementById("tour_pic");
+    inpFile.addEventListener("change",function () {
+        const file = this.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.addEventListener("load",function () {
+                previewImage.setAttribute("src",this.result)
+            });
+
+            reader.readAsDataURL(file);
+        }
+    })
+    </script>
+    {% endblock content %}
+</body>
+</html>

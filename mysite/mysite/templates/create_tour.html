@@ -1,0 +1,74 @@
+{% extends 'main.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<form action="POST">
+    {% csrf_token %}
+    <div class="m-3 mb-5">
+        <label class="font-weight-bold">Логотип</label>
+        <form class="md-form">
+          <div class="file-field">
+            <div class="mb-4" >
+              <img src="{% static 'img/cup.jpg' %}"
+                class="rounded-circle z-depth-1-half tour-pic" alt="example placeholder avatar" id="tour_pic" style="width: 200px;">
+            </div>
+            <div class="d-flex justify-content-start">
+              <div class="btn btn-mdb-color btn-rounded float-left">
+                <input type="file" id="add_image">
+              </div>
+            </div>
+          </div>
+        </form>
+    </div>
+    <div class="m-3 mb-5">
+        <label class="font-weight-bold">Название турнира</label>
+        <input type="text"  class="form-control">
+    </div>
+    <div class="col-auto my-1 mb-5">
+      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+        <option selected>Тип турнира</option>
+          {% for type in types %}
+        <option value="{{ type }}">{{ type }}</option>
+          {% endfor %}
+      </select>
+    </div>
+
+     <div class="m-3 mb-5">
+         <label class="font-weight-bold">Количество участников</label>
+        <input type="text"  class="form-control">
+    </div>
+     <div class="m-3 mb-5">
+         <label class="font-weight-bold">Место проведения</label>
+        <input type="text"class="form-control">
+    </div>
+    <div class="m-3 mb-5">
+         <label class="font-weight-bold">Описание</label>
+         <textarea class="form-control"></textarea>
+    </div>
+</form>
+    <script>
+    const inpFile = document.getElementById("add_image");
+    const previewImage =document.getElementById("tour_pic");
+    inpFile.addEventListener("change",function () {
+        const file = this.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.addEventListener("load",function () {
+                previewImage.setAttribute("src",this.result)
+            });
+
+            reader.readAsDataURL(file);
+        }
+    })
+    </script>
+{% endblock content %}
+</body>
+</html>
