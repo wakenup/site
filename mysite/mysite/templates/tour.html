@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+    <div class="mt-5 d-flex justify-content-center">
+        <p style="font-size: 30px;" class="">{{ tour.title }}</p>
+    </div>
+    <div class="d-flex justify-content-around mt-5" style="width:70%; margin-left: 200px;">
+        <img src="{{ tour.imageURL }}" alt="" style="width: 170px; ">
+        <div class="" style="font-size:20px;margin-left: 10px;">
+            <p>Количеcтво участников : {{ tour.teamsamount }}</p>
+            <p>Город проведения : {{ tour.city }}</p>
+            <p>Допольнительная информация : {{ tour.description }}</p>
+        </div>
+    </div>
+    <div class="mt-5 d-flex align-items-center flex-column">
+        <p>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
+               aria-expanded="false" aria-controls="collapseExample">
+                Список участников
+            </a>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                    aria-expanded="false" aria-controls="collapseExample">
+                Таблица
+            </button>
+             <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
+               aria-expanded="false" aria-controls="collapseExample">
+                Результаты
+            </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil
+                anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+</body>
+</html>

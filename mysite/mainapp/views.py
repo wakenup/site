@@ -15,6 +15,15 @@ def tour_list(request):
     return render(request, "tour_list.html", context)
 
 
+def tour(request,id):
+
+    t = Tournament.objects.get(pk=id)
+
+    context = {'tour':t}
+
+    return render(request,"tour.html",context);
+
+
 def user_profile(request):
     player = request.user.player
     user = request.user
@@ -81,7 +90,21 @@ def registration(request):
 @login_required(login_url='mainapp:login')
 def create_tour(request):
 
+    if request.method == 'POST':
+            logo = request.FILES['logo']
+            title = request.POST['title']
+            typet =request.POST['type']
+            amount = request.POST['amount']
+            city = request.POST['city']
+            desc = request.POST['label']
+            date = request.POST['date']
 
+            tour_info = Tournament(type=Typesoftour.objects.get(name=typet),title=title,description=desc,teamsamount=amount,dateofstart=date,finishedtour=False,islive=False,city=city,image=logo)
+            tour_info.save()
+            context = {
+                'tournaments': Tournament.objects.all()
+            }
+            return render(request, "tour_list.html", context)
     context = {'types':Typesoftour.objects.all()}
 
     return render(request,'create_tour.html',context)

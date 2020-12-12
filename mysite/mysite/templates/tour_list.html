@@ -22,7 +22,7 @@
                 <div class="box-element bg-light d-flex justify-content-around p-3">
                     <img class="thumbnail" src="{{ tour.imageURL }}" alt="" style="width:100px">
                     <div>
-                        <p style="font-size: 20px;" class="font-weight-bold"><a href="" style="text-decoration:none!important;">{{ tour.title }}</a></p>
+                        <p style="font-size: 20px;" class="font-weight-bold"><a href="{% url 'mainapp:tour' tour.id %}" style="text-decoration:none!important;">{{ tour.title }}</a></p>
                         <div>
                             <p class="mb-1 font-weight-bold">Количество участников:</p>
                             <p>{{ tour.teamsamount}}</p>

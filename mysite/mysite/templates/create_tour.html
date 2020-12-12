@@ -8,11 +8,10 @@
 </head>
 <body>
 {% block content %}
-<form action="POST">
+<form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="m-3 mb-5">
         <label class="font-weight-bold">Логотип</label>
-        <form class="md-form">
           <div class="file-field">
             <div class="mb-4" >
               <img src="{% static 'img/cup.jpg' %}"
@@ -20,18 +19,19 @@
             </div>
             <div class="d-flex justify-content-start">
               <div class="btn btn-mdb-color btn-rounded float-left">
-                <input type="file" id="add_image">
+                <input type="file" id="add_image" name="logo">
               </div>
             </div>
           </div>
-        </form>
     </div>
+
     <div class="m-3 mb-5">
         <label class="font-weight-bold">Название турнира</label>
-        <input type="text"  class="form-control">
+        <input type="text"  class="form-control" name="title">
     </div>
+
     <div class="col-auto my-1 mb-5">
-      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="type">
         <option selected>Тип турнира</option>
           {% for type in types %}
         <option value="{{ type }}">{{ type }}</option>
@@ -39,18 +39,30 @@
       </select>
     </div>
 
+    <div class="form-group m-3 mb-5">
+        <label for="inputDate">Введите дату:</label>
+        <input type="date" class="form-control" name="date">
+    </div>
+
      <div class="m-3 mb-5">
          <label class="font-weight-bold">Количество участников</label>
-        <input type="text"  class="form-control">
+        <input type="text"  class="form-control" name="amount">
     </div>
+
      <div class="m-3 mb-5">
-         <label class="font-weight-bold">Место проведения</label>
-        <input type="text"class="form-control">
+        <label class="font-weight-bold">Место проведения</label>
+        <input type="text"class="form-control" name="city">
     </div>
+
     <div class="m-3 mb-5">
          <label class="font-weight-bold">Описание</label>
-         <textarea class="form-control"></textarea>
+         <textarea class="form-control" name="label"></textarea>
     </div>
+
+    <div class="d-flex justify-content-center">
+        <input type="submit" class="btn btn-primary mb-4" value="Создать">
+    </div>
+
 </form>
     <script>
     const inpFile = document.getElementById("add_image");

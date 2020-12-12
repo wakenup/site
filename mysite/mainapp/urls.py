@@ -11,4 +11,5 @@ urlpatterns = [
     path('logout/',logoutUser,name='logout'),
     path('profile/',user_profile,name='profile'),
     path('createtour',create_tour,name='createtour'),
+    path('tournament/<int:id>',tour,name="tour"),
 ]
