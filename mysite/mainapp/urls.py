@@ -12,4 +12,6 @@ urlpatterns = [
     path('profile/',user_profile,name='profile'),
     path('createtour',create_tour,name='createtour'),
     path('tournament/<int:id>',tour,name="tour"),
+    path('teams/',teams,name="teams"),
+    path('create_team/',create_team,name="create_team"),
 ]

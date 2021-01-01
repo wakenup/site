@@ -19,26 +19,115 @@
             <p>Допольнительная информация : {{ tour.description }}</p>
         </div>
     </div>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center mt-5">
+            <input type="submit" class="btn btn-primary mb-4" value="Зарегистрировать команду" name="register">
+            <input type="button" class="btn btn-primary mb-4 ml-4" value="Добавить результат" data-toggle="modal"
+                   data-target="#exampleModal">
+        </div>
+    </form>
+
+
+    <form action="" method="POST" enctype="multipart/form-data">
+        <!-- Modal -->
+        {% csrf_token %}
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body d-flex flex-row justify-content-around">
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="firsteam"
+                                style="width: 150px;">
+                            {% for team in teams %}
+                                <option value="{{ team }}">{{ team }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="number" style="width: 50px;" name="firstscore">
+                        :
+                        <input type="number" style="width: 50px;" name="secondscore">
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="secondteam"
+                                style="width: 150px;">
+
+                            {% for team in teams %}
+                                <option value="{{ team }}">{{ team }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-primary" name="save">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
     <div class="mt-5 d-flex align-items-center flex-column">
         <p>
             <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
-               aria-expanded="false" aria-controls="collapseExample">
+               aria-expanded="true" aria-controls="collapseExample">
                 Список участников
             </a>
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
-                    aria-expanded="false" aria-controls="collapseExample">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#tableres"
+                    aria-expanded="true" aria-controls="tableres">
                 Таблица
             </button>
-             <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
-               aria-expanded="false" aria-controls="collapseExample">
+            <a class="btn btn-primary" data-toggle="collapse" href="#res" role="button"
+               aria-expanded="true" aria-controls="res">
                 Результаты
             </a>
         </p>
         <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil
-                anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-            </div>
+            {% for team in teams %}
+                <ul class="list-group" style="width: 500px">
+                    <li class="list-group-item"><img class="thumbnail" src="{{ team.imageURL }}" alt=""
+                                                     style="width:90px;height: 70px">
+                        <a href="#" class="ml-5">{{ team.name }}</a></li>
+                </ul>
+            {% endfor %}
+        </div>
+        <div class="collapse" id="res">
+            {% for r in res %}
+                <ul class="list-group" style="width: 500px; font-size: 20px; text-align: center;">
+                    <li class="list-group-item">
+                        {{ r.teamone }}
+                        {{ r.goalsteamone }}
+                        :
+                        {{ r.goalsteamtwo }}
+                        {{ r.teamtwo }}
+                    </li>
+                </ul>
+            {% endfor %}
+        </div>
+        <div class="collapse" id="tableres">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Название</th>
+                    <th scope="col">Голов забито</th>
+                    <th scope="col">Голов пропущено</th>
+                    <th scope="col">Количество очков</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for t in tables %}
+                    <tr>
+                        <td>{{ t.team }}</td>
+                        <td>{{ t.goalsscored }}</td>
+                        <td>{{ t.goalsskip }}</td>
+                        <td>{{ t.points }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock content %}

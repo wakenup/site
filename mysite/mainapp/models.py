@@ -49,9 +49,19 @@ class Team(models.Model):
     # captain = models.ForeignKey(Player, verbose_name="Капитан команды",on_delete=models.CASCADE)
     name = models.CharField(max_length=255,verbose_name="Название команды")
     # slug = models.SlugField(unique=True)
+    image = models.ImageField(null=True, blank=True, default='q.jpg')
+    city = models.CharField(max_length=255,verbose_name="Город команды")
 
     def __str__(self):
         return self.name
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = 'img/q.jpg'
+        return url
 
 
 class Player(models.Model):
@@ -69,11 +79,14 @@ class Player(models.Model):
 class PlayerTeam(models.Model):
     player = models.ForeignKey(Player,verbose_name="Игрок",on_delete=models.CASCADE)
     team = models.ForeignKey(Team, verbose_name="Команда", on_delete=models.CASCADE)
+    registertotur = models.BooleanField(default=False)
 
 class Tourteam(models.Model):
     team = models.ForeignKey(Team,verbose_name="Команда",on_delete=models.CASCADE)
     tournament = models.ForeignKey(Tournament,verbose_name="Турнир",on_delete=models.CASCADE)
     points = models.PositiveIntegerField(default=0)
+    goalsscored = models.PositiveIntegerField(default=0)
+    goalsskip = models.PositiveIntegerField(default=0)
     captain = models.ForeignKey(Player,verbose_name="Капитан",on_delete=models.CASCADE)
 
     def __str__(self):
@@ -88,6 +101,3 @@ class Game(models.Model):
     goalsteamone = models.PositiveIntegerField(default=0)
     goalsteamtwo = models.PositiveIntegerField(default=0)
     dateofstart = models.DateTimeField()
-
-    def __str__(self):
-        pass
